@@ -1,0 +1,4 @@
+public/bower_components
+public/build.*
+node_modules
+.temp
