@@ -1,57 +1,32 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+// Require our dependencies
+var express = require('express'),
+  exphbs = require('express-handlebars'),
+  http = require('http'),
+  routes = require('./routes/home');
+  var babel = require('babel/register');
+  //config = require('./config'),
 
+// Create an express instance and set a port variable
 var app = express();
+var port = process.env.PORT || 8080;
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// Set handlebars as the templating engine
+//app.engine('ejs', exphbs({ defaultLayout: 'main'}));
+app.set('view engine', 'ejs');
 
-app.use('/', routes);
-app.use('/users', users);
+// Disable etag headers on responses
+//app.disable('etag');
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+// Index Route
+app.get('/', routes.index);
+
+// Page Route
+//app.get('/page/:page/:skip', routes.page);
+
+// Set /public as our static content dir
+app.use("/", express.static(__dirname + "/public/"));
+
+// Fire it up (start our server)
+var server = http.createServer(app).listen(port, function() {
+  console.log('Express server listening on port ' + port);
 });
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
-app.listen(3000, function(){
-  console.log('Server listening on port 3000')
-});
-
-
-module.exports = app;

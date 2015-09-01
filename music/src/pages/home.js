@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 
 const Home = React.createClass({
 
@@ -9,4 +9,16 @@ const Home = React.createClass({
 	}
 })
 
-export default Home
+export default Home*/
+
+var React = require('react');
+
+var Home = React.createClass({
+	render: function(){
+		return (
+			<div>I am home</div>
+		)	
+	}
+})
+
+module.exports = Home;

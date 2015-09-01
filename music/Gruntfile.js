@@ -16,7 +16,7 @@ module.exports = function(grunt){
     grunt.initConfig(configs);
 
 
-    grunt.registerTask('default', ['wiredep', 'browserSync', 'watch']);
+    grunt.registerTask('default', ['wiredep', 'express:dev', 'watch']);
     grunt.registerTask('build', ['less', 'browserify', 'uglify']);
 
 }

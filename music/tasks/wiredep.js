@@ -1,6 +1,6 @@
 module.exports = {
 	task: {
-
-        src: ['./public/index.html']
+        src: ['./views/index.ejs'],
+        ignorePath: '../public/'
     }
 }
